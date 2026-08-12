@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>국내 주요 기업 자금조달 뉴스 요약</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-root">
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>국내 주요 기업 자금조달 뉴스 요약</h1>
+        <p class="subtitle">회사채·유상증자 등 국내 주요 기업 자금조달 소식을 건별로 확인</p>
+      </div>
+      <button class="theme-btn" id="themeBtn" type="button">다크 모드</button>
+    </header>
+
+    <nav class="tab-nav" id="tabNav">
+      <button class="tab-btn" data-target="screen-home" type="button">홈</button>
+      <button class="tab-btn" data-target="screen-detail" type="button">건별 상세</button>
+      <button class="tab-btn" data-target="screen-stats" type="button">통계/분포</button>
+      <button class="tab-btn" data-target="screen-watchlist" type="button">관심종목</button>
+    </nav>
+
+    <main>
+      <section class="screen" id="screen-home">
+        <div class="card" id="summaryCard"></div>
+
+        <div class="card">
+          <h2>자금조달 목록</h2>
+          <p class="desc">2026년 6~8월 국내 주요 기업 자금조달 건입니다. 항목을 클릭하면 상세 화면으로 이동합니다.</p>
+          <ul class="funding-list" id="fundingList"></ul>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-detail">
+        <div class="card">
+          <h2>건별 상세</h2>
+          <div id="detailContent"></div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-stats">
+        <div class="card">
+          <h2>조달방식별 합계</h2>
+          <p class="desc">2026년 6~8월 확인 대상 건 기준(기간 외 참고건 제외).</p>
+          <ul class="stat-list" id="methodStatsList"></ul>
+        </div>
+
+        <div class="card">
+          <h2>업종별 합계</h2>
+          <ul class="stat-list" id="sectorStatsList"></ul>
+        </div>
+
+        <div class="card" id="ratioCard"></div>
+      </section>
+
+      <section class="screen" id="screen-watchlist">
+        <div class="panel-grid">
+          <div class="card panel-card">
+            <p class="eyebrow">관심종목</p>
+            <p class="desc">브라우저에만 저장됩니다. <strong>실제 알림(이메일/푸시 등)은 발송되지 않습니다.</strong></p>
+
+            <div class="watch-form">
+              <p class="desc" id="watchlistSyncNote">불러오는 중...</p>
+
+              <label class="settings-row">
+                <span>관심기업</span>
+                <div class="watch-input-row">
+                  <input type="text" id="companyInput" placeholder="예: SK하이닉스">
+                  <button class="save-btn" id="addCompanyBtn" type="button">추가</button>
+                </div>
+              </label>
+              <ul class="chip-list" id="companyChips"></ul>
+
+              <label class="settings-row">
+                <span>관심 키워드</span>
+                <div class="watch-input-row">
+                  <input type="text" id="keywordInput" placeholder="예: 유상증자">
+                  <button class="save-btn" id="addKeywordBtn" type="button">추가</button>
+                </div>
+              </label>
+              <ul class="chip-list" id="keywordChips"></ul>
+
+              <p class="saved-msg" id="watchSavedMsg">저장되었습니다. (로컬 저장만 — 실제 발송되지 않습니다)</p>
+            </div>
+          </div>
+
+          <div class="card panel-card">
+            <p class="eyebrow">메모</p>
+            <p class="desc">생각나는 내용을 짧게 기록해두세요.</p>
+            <div class="mini-form">
+              <div class="watch-input-row">
+                <input type="text" id="noteInput" placeholder="메모 입력">
+                <button class="save-btn" id="addNoteBtn" type="button">추가</button>
+              </div>
+              <ul class="mini-list" id="noteList"></ul>
+            </div>
+          </div>
+
+          <div class="card panel-card">
+            <p class="eyebrow">체크리스트</p>
+            <p class="desc">해야 할 일을 등록하고 완료 체크를 해보세요.</p>
+            <div class="mini-form">
+              <div class="watch-input-row">
+                <input type="text" id="checklistInput" placeholder="할 일 입력">
+                <button class="save-btn" id="addChecklistBtn" type="button">추가</button>
+              </div>
+              <ul class="mini-list" id="checklistList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
