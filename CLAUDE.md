@@ -13,6 +13,7 @@
 - 파일은 index.html, style.css, app.js 3개로 유지한다 (파일 추가/분할 금지).
 - 데이터는 기본적으로 localStorage에 저장한다.
 - 예외: 관심종목(관심기업·관심 키워드)은 Supabase(BaaS)에 저장한다. index.html에서 supabase-js를 CDN `<script>` 태그로 불러오고, 별도 빌드 도구·자체 백엔드 서버는 두지 않는다. 그 외 데이터(테마, 선택 항목, 메모, 체크리스트)는 계속 localStorage를 사용한다.
+- 예외: GitHub 저장소 ↔ Supabase 프로젝트 연동(마이그레이션 자동 배포)을 위해 저장소 루트에 `supabase/`(config.toml, migrations/)를 인프라 관리용으로 둔다. 앱 소스 파일(index.html, style.css, app.js)은 여전히 3개로 유지한다.
 
 # 참조
 
