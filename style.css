@@ -1,5 +1,5 @@
-:root { color-scheme: light; }
-.app-root {
+:root {
+  color-scheme: light;
   --page:            #faf9f5;
   --surface-1:       #efe9de;
   --text-primary:    #141413;
@@ -18,7 +18,7 @@
   --font-serif: Georgia, "Times New Roman", serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) .app-root {
+  :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
     --page:            #181715;
     --surface-1:       #252320;
@@ -36,7 +36,7 @@
     --down: #c64545;
   }
 }
-:root[data-theme="dark"] .app-root {
+:root[data-theme="dark"] {
   color-scheme: dark;
   --page:            #181715;
   --surface-1:       #252320;
