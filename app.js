@@ -1,124 +1,111 @@
 (function () {
-  // 실데이터 7건 (국내_주요기업_자금조달_뉴스_요약.html 리서치 결과 그대로 반영, 2026-08-12 기준)
+  // 실데이터 6건 (DART 최근 1주일 자금조달 공시 리서치 결과 반영, 2026-08-05~2026-08-12 / 조사일 2026-08-12 기준)
+  // 금융업종(은행·증권·보험·카드·캐피탈·리츠·금융지주 등) 자금조달은 범위에서 제외한다.
   var DATA = [
     {
-      id: 'sk-hynix',
-      company: 'SK하이닉스',
-      methodCategory: '유상증자',
-      methodDetail: '유상증자(제3자배정·해외DR/나스닥 ADR)',
-      sector: '반도체',
-      amount: 454534,
-      amountBasis: '신주 1,779만주 × 참고발행가 255만5,000원 ≈ 454,534억원',
-      purpose: { text: '용인 반도체클러스터 1기 팹 건설, 청주 P&T7 어드밴스드패키징 팹·EUV 스캐너 등 시설투자', confirmed: true },
-      disclosureDate: '2026-06-24',
-      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: 'DART 접수사실 직접 확인, 세부 수치는 3개 경제지 교차확인.' },
+      id: 'hlb-cb',
+      company: 'HLB(에이치엘비)',
+      methodCategory: '전환사채',
+      methodDetail: '전환사채(CB, 무기명식 무보증 사모, 제44회)',
+      sector: '제약·바이오(신약개발)',
+      amount: 300,
+      amountBasis: '제44회 사모 전환사채 발행총액 300억원(이사회 결의 공시 원문)',
+      purpose: { text: '신약 개발 R&D비, 임상자금 및 상업화 비용(운영자금) — 2026년 100억원, 2027년 200억원 집행 계획', confirmed: true },
+      disclosureDate: '2026-08-05',
+      issueDate: '2026-08-19',
+      maturityDate: '2029-08-19',
+      couponRate: null,
+      yieldRate: null,
+      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: true, note: '이사회 결의 2026-08-05, 납입일(발행일) 2026-08-19, 만기 2029-08-19, 전환가 33,361원. CBC뉴스·코메디닷컴 교차확인. 표면이자율·만기이자율은 기사에 없어 미확인. 다만 코메디닷컴 기사의 "BNK투자증권 245억원 인수" 표현 등 300억원 중 일부 인수처리 방식이 명확치 않아 진행중으로 표시.' },
       outOfRange: false,
       sourceUrls: [
-        { label: 'DART 주요사항보고서(rcpNo 20260624000420)', url: 'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260624000420' },
-        { label: '머니투데이 — SK하이닉스 45.5조 규모 신주 DR 발행', url: 'https://www.mt.co.kr/industry/2026/06/24/2026062416513319330' },
-        { label: '전자신문 — SK하이닉스 나스닥 ADR 발행 확정', url: 'https://www.etnews.com/20260624000425' }
+        { label: 'CBC뉴스 — HLB 300억원 규모 사모 CB 발행', url: 'https://www.cbci.co.kr/news/articleView.html?idxno=594831' },
+        { label: '코메디닷컴 — HLB 사모 전환사채 300억원 발행', url: 'https://kormedi.com/2842771/' }
       ]
     },
     {
-      id: 'daehan-air',
-      company: '대한항공',
-      methodCategory: '회사채',
-      methodDetail: '회사채(공모)',
-      sector: '항공',
-      amount: 2000,
-      amountBasis: '2년물 800억+3년물 1,200억=모집 2,000억(최대 4,000억 검토)',
-      purpose: { text: '미확인(기사에 목적 미기재)', confirmed: false },
-      disclosureDate: '2026-06-01',
-      verification: { amountConfirmed: true, purposeConfirmed: false, inProgress: false, note: '모집액·수요배수(1조1,140억 주문, 5.57배)는 확인. 목적·최종 증액 여부는 미확인.' },
+      id: 'delicious-ipo',
+      company: '딜리셔스',
+      methodCategory: '유상증자 및 IPO',
+      methodDetail: 'IPO(코스닥, 일반공모)',
+      sector: '이커머스·플랫폼(패션 B2B 도매 "신상마켓")',
+      amount: 154,
+      amountBasis: '공모가 7,000원×공모주식수 220만주(기관 165만+일반 55만)=154억원(기사 직접 명시)',
+      purpose: { text: '물류자동화 설비투자 약 20억원, 글로벌 마케팅·해외파트너십 등 운영자금 약 43.6억원, 패션 이커머스 SaaS·AI 콘텐츠기업 인수·지분투자 약 86억원', confirmed: true },
+      disclosureDate: '2026-08-06~2026-08-12',
+      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '주금 납입일(8/6)·코스닥 상장일(8/12)이 조사기간 내. 머니투데이·뉴스핌·이투데이 교차확인. 목적별 세부금액 합(약 149.6억)이 총액 154억과 약 4억원 차이 있어 세부 배분은 근사치.' },
       outOfRange: false,
       sourceUrls: [
-        { label: '이데일리 — 대한항공 회사채 수요예측 흥행', url: 'https://www.edaily.co.kr/News/Read?newsId=04749446645477456&mediaCodeNo=257' },
-        { label: '마켓인(이데일리) — 6월 회사채 발행 재개', url: 'https://marketin.edaily.co.kr/News/Read?newsId=01338246645454496' }
+        { label: '머니투데이 — 딜리셔스 코스닥 IPO 일반청약 마감', url: 'https://www.mt.co.kr/stock/2026/08/04/2026080417240070007' },
+        { label: '뉴스핌 — 딜리셔스 공모가 7,000원 확정', url: 'https://www.newspim.com/news/view/20260731001349' },
+        { label: '이투데이 — 딜리셔스 자금사용계획(SaaS·글로벌 확장)', url: 'https://www.etoday.co.kr/news/view/2608823' }
       ]
     },
     {
-      id: 'lotte-shopping',
-      company: '롯데쇼핑',
-      methodCategory: '회사채',
-      methodDetail: '회사채(공모)',
-      sector: '유통',
-      amount: 2000,
-      amountBasis: '2년물 800억+3년물 1,200억=모집 2,000억(최대 4,000억 검토), 신용등급 AA-',
-      purpose: { text: '미확인(기사에 목적 미기재)', confirmed: false },
-      disclosureDate: '2026-06-01',
-      verification: { amountConfirmed: true, purposeConfirmed: false, inProgress: false, note: '모집액은 확인. 목적·최종 증액 여부·실제 수요배수는 후속기사로 교차확인하지 못함.' },
+      id: 'nearthlab-ipo',
+      company: '니어스랩',
+      methodCategory: '유상증자 및 IPO',
+      methodDetail: 'IPO(코스닥, 일반공모)',
+      sector: '로봇·드론(산업용 AI 드론)',
+      amount: 375,
+      amountBasis: '공모가 41,200원(희망밴드 상단) 기준 총 공모금액 약 375억원(기사 직접 명시)',
+      purpose: { text: '자가공장 설립을 통한 생산 인프라 내재화(2027~2028 단계적 투자), 생산·품질경영 인력 확충, 기업부설연구소 중심 R&D 및 제품고도화', confirmed: true },
+      disclosureDate: '2026-08-07~2026-08-12',
+      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '수요예측 국내외 기관 1,795곳·경쟁률 743.5:1, 93.87%가 상단가 제시. 매체별 수요예측 종료일 표기가 8/7·8/11로 엇갈리나 최종 공모가·경쟁률은 두 매체 모두 일치.' },
       outOfRange: false,
       sourceUrls: [
-        { label: '마켓인(이데일리) — 롯데쇼핑·대한항공 수요예측', url: 'https://marketin.edaily.co.kr/News/Read?newsId=01338246645454496' },
-        { label: '다음뉴스(제휴) — 롯데쇼핑 회사채 관련 보도', url: 'https://v.daum.net/v/20260531120316949?f=p' }
+        { label: '뉴스토모토(IB토마토) — 니어스랩 공모가 최상단 확정', url: 'https://www.newstomato.com/ReadNews.aspx?no=1309896' },
+        { label: '플래텀 — 니어스랩 공모가 41,200원 확정', url: 'https://platum.kr/archives/292340' }
       ]
     },
     {
-      id: 'gs-entec',
-      company: 'GS엔텍',
-      methodCategory: '회사채',
-      methodDetail: '회사채(공모, GS글로벌 지급보증)',
-      sector: '조선·해양플랜트',
-      amount: 350,
-      amountBasis: '2년물 200억+3년물 150억=모집 350억, 940억 주문(2.7배)',
-      purpose: { text: '2년물(200억) 운영자금, 3년물(150억) 해상풍력 하부구조물 제조 설비투자', confirmed: true },
-      disclosureDate: '2026-07-08~07-16',
-      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '신용등급 A0(안정적), 모회사 GS글로벌 지급보증부.' },
+      id: 'kns-inc-ipo',
+      company: '케이앤에스아이앤씨',
+      methodCategory: '유상증자 및 IPO',
+      methodDetail: 'IPO(코스닥, 일반공모)',
+      sector: '방위산업·통신장비(위성통신 안테나)',
+      amount: 264,
+      amountBasis: '공모가 11,000원(희망밴드 상단)×공모주식수 240만주=264억원',
+      purpose: { text: '군용·ESA 평판 안테나 R&D 인력 확충 및 인프라 고도화, ESA 측정·RF 설계 소프트웨어 도입, RF 통신부품 등 원자재 확보', confirmed: true },
+      disclosureDate: '2026-08-04~2026-08-07',
+      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '공모가 확정 발표는 8/3(기간 직전)이나 일반청약(8/4~8/5)·납입일(8/7 추정)이 조사기간 내. 한국경제·서울경제로 공모가·경쟁률(기관 938.24:1, 일반 1,079.55:1) 교차확인. 상장일(8/13)은 조사기간 이후.' },
       outOfRange: false,
       sourceUrls: [
-        { label: '이데일리 — GS엔텍 회사채 수요예측서 940억 주문', url: 'https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04916726645512552' },
-        { label: '파이낸셜뉴스 — GS엔텍, 최대주주 신용 지원으로 공모채 도전', url: 'https://www.fnnews.com/news/202606251351134347' }
+        { label: '한국경제 — 케이앤에스아이앤씨 공모가 상단 확정', url: 'https://www.hankyung.com/article/202608032221r' },
+        { label: '서울경제 — 케이앤에스아이앤씨 청약 경쟁률 1,079:1', url: 'https://www.sedaily.com/article/20076112' }
       ]
     },
     {
-      id: 'shinsegae-const',
-      company: '신세계건설(이마트 제3자배정)',
-      methodCategory: '유상증자',
-      methodDetail: '유상증자(제3자배정, 최대주주 전량 인수)',
-      sector: '건설',
-      amount: 5000,
-      amountBasis: '보통주 1,000만주×5만원=5,000억(현금 2,400억+현물 2,600억)',
-      purpose: { text: '재무구조 개선 및 운영자금 확보(이마트 명일점 토지·건물 현물출자 포함)', confirmed: true },
-      disclosureDate: '2026-05-14',
-      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: true, note: '현금분(2,400억) 6/25 납입 완료, 현물분(2,600억)은 법원 인가 후 8/24 출자 예정 — 진행중.' },
+      id: 'kido-ipo',
+      company: '기도산업',
+      methodCategory: '유상증자 및 IPO',
+      methodDetail: 'IPO(코스닥, 일반공모)',
+      sector: '섬유·의류(하이테크 아웃도어 OEM)',
+      amount: 483,
+      amountBasis: '공모가 28,400원(희망밴드 상단)×공모주식수 170만주=482.8억원→483억원(반올림, 기사에도 483억원 명시)',
+      purpose: { text: '방글라데시 공장 생산라인 증설 등 시설투자 — 공모가 하단 기준 조달자금 328억원의 71%인 235억원을 증설에 투입(2028년 중반 완료 목표)', confirmed: true },
+      disclosureDate: '2026-08-06, 2026-08-11~2026-08-12',
+      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '기관 수요예측 7/31~8/6(637개 기관, 경쟁률 213.3:1), 일반청약 8/11~8/12. 이투데이·이데일리 교차확인. 목적별 투입액(235억)은 공모가 하단 기준 328억을 base로 계산돼 최종 확정액(483억, 상단가)과 산정 기준이 달라 절대금액은 참고용.' },
       outOfRange: false,
       sourceUrls: [
-        { label: '유스데일리 — 이마트, 신세계건설에 5천억 유상증자', url: 'https://www.youthdaily.co.kr/news/article.html?no=219186' },
-        { label: '블로터 — 신세계건설, 모회사 자산 출자로 재무구조 개선', url: 'https://www.bloter.net/news/articleView.html?idxno=663277' }
+        { label: '이투데이 — 기도산업 하이테크 아웃도어 목표', url: 'https://www.etoday.co.kr/news/view/2611801' },
+        { label: '이데일리 — 기도산업 일반공모 돌입', url: 'https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03719526645546336' }
       ]
     },
     {
-      id: 'sk-dnd',
-      company: 'SK디앤디',
-      methodCategory: '유상증자',
-      methodDetail: '유상증자(주주배정)',
-      sector: '신재생·부동산개발',
-      amount: 1367,
-      amountBasis: '신주 4,468만1,000주×예정발행가 3,060원=1,367.2386억원(반올림 1,367억)',
-      purpose: { text: '하반기 만기 차입금 상환 및 군포 트리아츠 사업 추가자금 대응(전액 채무상환)', confirmed: true },
-      disclosureDate: '2026-07-28',
-      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: true, note: '2026-08-06 금융감독원이 정정신고서 제출을 요구해 증권신고서 효력이 정지된 상태 — 진행중.' },
+      id: 'uti-rights-issue',
+      company: '유티아이(UTI)',
+      methodCategory: '유상증자 및 IPO',
+      methodDetail: '유상증자(일반공모)',
+      sector: '전자부품·디스플레이소재(강화유리, 반도체 유리기판)',
+      amount: 30,
+      amountBasis: '확정 발행가 1,684원×발행주식수 177만8,907주=29억9,567만9,388원→약 30억원(반올림)',
+      purpose: { text: '미확인(기사에 사용목적 미기재)', confirmed: false },
+      disclosureDate: '2026-08-06',
+      verification: { amountConfirmed: false, purposeConfirmed: false, inProgress: false, note: '2026-08-06 이사회에서 발행가액 확정(당초 예정가 1,896원→1,684원, 발행주식수 158만주→177.89만주 상향). Investing.com 단일 출처만 확인되어 2개 이상 매체 교차확인에 실패 — 금액·목적 모두 미확인으로 표시.' },
       outOfRange: false,
       sourceUrls: [
-        { label: '한국경제 — SK디앤디 1367억 유상증자', url: 'https://www.hankyung.com/article/202607293392i' },
-        { label: '아주경제 — SK디앤디, 조달 자금 전액 채무상환', url: 'https://www.ajunews.com/view/20260728202730873' }
-      ]
-    },
-    {
-      id: 'samsung-fn-reit',
-      company: '삼성FN리츠',
-      methodCategory: '회사채',
-      methodDetail: '회사채(공모)',
-      sector: '리츠',
-      amount: 2000,
-      amountBasis: '1.5년물 900억(3.97%)+2년물 1,100억(4.23%)=2,000억',
-      purpose: { text: '삼성생명 잠실빌딩 자산 편입 대금(전액 자산 매입 대금 충당, 자사자금 130억 추가 투입)', confirmed: true },
-      disclosureDate: '2026-03-17',
-      verification: { amountConfirmed: true, purposeConfirmed: true, inProgress: false, note: '날짜가 조사 기간(6~8월)보다 이름 — 참고용으로만 포함, 합계·통계에서는 제외.' },
-      outOfRange: true,
-      sourceUrls: [
-        { label: '다음뉴스 — 삼성FN리츠, 유상증자 대신 회사채 선택', url: 'https://v.daum.net/v/20260309143301129' },
-        { label: '딜사이트 — 삼성FN리츠, 잠실빌딩 편입에 자산 1조 돌파', url: 'https://dealsite.co.kr/articles/162660' }
+        { label: 'Investing.com — 유티아이 유상증자 발행가액 확정', url: 'https://kr.investing.com/news/global-filings/article-93CH-2048283' }
       ]
     }
   ];
@@ -127,11 +114,220 @@
     return DATA.filter(function (r) { return !r.outOfRange; });
   }
 
+  // amount가 null인 건(DART에서 실시간 감지됐지만 원문 확인 전인 건)은 합계에서 제외한다.
   function computeTotal(records) {
-    var sum = records.reduce(function (acc, r) { return acc + r.amount; }, 0);
-    var basisText = records.map(function (r) { return r.amount.toLocaleString('ko-KR'); }).join('+') +
-      ' = ' + sum.toLocaleString('ko-KR') + '억원';
+    var known = records.filter(function (r) { return typeof r.amount === 'number'; });
+    var unknownCount = records.length - known.length;
+    var sum = known.reduce(function (acc, r) { return acc + r.amount; }, 0);
+    var basisText = known.length === 0
+      ? '해당 기간 건 없음 = 0억원'
+      : known.map(function (r) { return r.amount.toLocaleString('ko-KR'); }).join('+') + ' = ' + sum.toLocaleString('ko-KR') + '억원';
+    if (unknownCount > 0) {
+      basisText += ' (금액 미확인 ' + unknownCount + '건 별도, 합계 제외)';
+    }
     return { sum: sum, basisText: basisText };
+  }
+
+  // 조회 기간 필터: 공시일(disclosureDate) 기준으로 목록/합계/통계를 좁혀서 보여줌
+  var DATE_FILTER_KEY = 'fundraisingBrief.dateFilter';
+
+  function fmtDate(d) {
+    var y = d.getFullYear(), m = ('0' + (d.getMonth() + 1)).slice(-2), day = ('0' + d.getDate()).slice(-2);
+    return y + '-' + m + '-' + day;
+  }
+
+  // disclosureDate는 'YYYY-MM-DD', 'YYYY-MM-DD~MM-DD', 'YYYY-MM-DD~YYYY-MM-DD',
+  // 'YYYY-MM-DD, YYYY-MM-DD~YYYY-MM-DD' 등 여러 표기를 섞어 쓰므로, 콤마/물결로 나눠 각 조각을
+  // 날짜로 복원한 뒤 그 중 최소·최대를 그 건의 날짜 범위로 삼는다.
+  function getRecordDateRange(record) {
+    var parts = record.disclosureDate.split(/,|~/).map(function (s) { return s.trim(); });
+    var year = null, dates = [];
+    parts.forEach(function (p) {
+      var full = p.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      var partial = p.match(/^(\d{2})-(\d{2})$/);
+      if (full) {
+        year = full[1];
+        dates.push(new Date(Number(full[1]), Number(full[2]) - 1, Number(full[3])));
+      } else if (partial && year) {
+        dates.push(new Date(Number(year), Number(partial[1]) - 1, Number(partial[2])));
+      }
+    });
+    if (dates.length === 0) return null;
+    var times = dates.map(function (d) { return d.getTime(); });
+    return { start: new Date(Math.min.apply(null, times)), end: new Date(Math.max.apply(null, times)) };
+  }
+
+  function getDateFilter() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(DATE_FILTER_KEY));
+      if (saved && (saved.start || saved.end)) return saved;
+    } catch (e) { /* 저장된 값이 없거나 손상된 경우 전체 기간으로 처리 */ }
+    return { start: null, end: null };
+  }
+
+  function setDateFilter(filter) {
+    localStorage.setItem(DATE_FILTER_KEY, JSON.stringify(filter));
+  }
+
+  function recordMatchesFilter(record, filter) {
+    if (!filter.start && !filter.end) return true;
+    var range = getRecordDateRange(record);
+    if (!range) return false;
+    if (filter.start && range.end < new Date(filter.start + 'T00:00:00')) return false;
+    if (filter.end && range.start > new Date(filter.end + 'T23:59:59')) return false;
+    return true;
+  }
+
+  // 자금조달 방식 필터: 회사채·유상증자 및 IPO·전환사채·신주인수권부사채·교환사채·영구채 중 켜둔 것만 보여줌
+  var CATEGORY_FILTER_KEY = 'fundraisingBrief.categoryFilter';
+  var ALL_CATEGORIES = ['회사채', '유상증자 및 IPO', '전환사채', '신주인수권부사채', '교환사채', '영구채'];
+
+  // 이전 버전에 저장된 구 카테고리 값을 현재 체계로 이전한다.
+  var LEGACY_CATEGORY_MAP = {
+    '주요사항보고(메자닌)': ['전환사채', '신주인수권부사채', '교환사채', '영구채'],
+    '유상증자': ['유상증자 및 IPO'],
+    'IPO': ['유상증자 및 IPO']
+  };
+
+  function migrateCategoryList(list) {
+    var result = [];
+    list.forEach(function (key) {
+      var mapped = LEGACY_CATEGORY_MAP[key] || [key];
+      mapped.forEach(function (m) { if (result.indexOf(m) === -1) result.push(m); });
+    });
+    return result;
+  }
+
+  function getCategoryFilter() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(CATEGORY_FILTER_KEY));
+      if (Array.isArray(saved)) return migrateCategoryList(saved);
+    } catch (e) { /* 저장된 값이 없거나 손상된 경우 전체 선택으로 처리 */ }
+    return ALL_CATEGORIES.slice();
+  }
+
+  function setCategoryFilter(categories) {
+    localStorage.setItem(CATEGORY_FILTER_KEY, JSON.stringify(categories));
+  }
+
+  function recordMatchesCategoryFilter(record, categories) {
+    return categories.indexOf(record.methodCategory) !== -1;
+  }
+
+  // 회사명 검색: 대소문자 구분 없이 부분일치, 공백은 무시
+  var COMPANY_SEARCH_KEY = 'fundraisingBrief.companySearch';
+
+  function getCompanySearch() {
+    return localStorage.getItem(COMPANY_SEARCH_KEY) || '';
+  }
+
+  function setCompanySearch(term) {
+    localStorage.setItem(COMPANY_SEARCH_KEY, term);
+  }
+
+  function recordMatchesCompanySearch(record, term) {
+    if (!term) return true;
+    var normalize = function (s) { return String(s).toLowerCase().replace(/\s+/g, ''); };
+    return normalize(record.company).indexOf(normalize(term)) !== -1;
+  }
+
+  // DART 실시간 조회 결과: 새로고침하면 사라지는 임시 데이터(저장하지 않음)
+  var liveRecords = [];
+  var liveFetchState = { loading: false, error: null, truncated: false };
+
+  function normalizeCompanyKey(name) {
+    return String(name).replace(/\(.*?\)/g, '').replace(/\s+/g, '');
+  }
+
+  // 실시간으로 감지된 건이 이미 수동으로 검증해둔 건과 같은 이벤트로 보이면 중복 표시하지 않는다.
+  function isDuplicateOfCurated(liveItem) {
+    var liveRange = getRecordDateRange(liveItem);
+    if (!liveRange) return false;
+    return DATA.some(function (r) {
+      if (r.outOfRange) return false;
+      var a = normalizeCompanyKey(r.company), b = normalizeCompanyKey(liveItem.company);
+      if (a.indexOf(b) === -1 && b.indexOf(a) === -1) return false;
+      var range = getRecordDateRange(r);
+      if (!range) return false;
+      return !(liveRange.end < range.start || liveRange.start > range.end);
+    });
+  }
+
+  function getVisibleRecords() {
+    var filter = getDateFilter();
+    var categories = getCategoryFilter();
+    var searchTerm = getCompanySearch();
+    var curated = getInRangeRecords().filter(function (r) {
+      return recordMatchesFilter(r, filter) && recordMatchesCategoryFilter(r, categories) && recordMatchesCompanySearch(r, searchTerm);
+    });
+    var live = liveRecords.filter(function (r) {
+      return recordMatchesFilter(r, filter) && recordMatchesCategoryFilter(r, categories) && recordMatchesCompanySearch(r, searchTerm) && !isDuplicateOfCurated(r);
+    });
+    var merged = curated.concat(live);
+    merged.sort(function (a, b) {
+      var ra = getRecordDateRange(a), rb = getRecordDateRange(b);
+      if (!ra || !rb) return 0;
+      return rb.start - ra.start;
+    });
+    return merged;
+  }
+
+  function describeFilter(filter) {
+    if (!filter.start && !filter.end) return '전체 기간';
+    return (filter.start || '처음') + ' ~ ' + (filter.end || '오늘');
+  }
+
+  // 선택한 기간을 DART에 실시간으로 조회한다. 금액·목적은 원문 확인 전이라 항상 미확인으로 채워지고,
+  // 새로고침하면 사라지는 임시 데이터라 localStorage에는 저장하지 않는다.
+  // CB/BW/EB·유상증자 상세 API까지 함께 조회하느라 20초 이상 걸릴 수 있어, 기본 타임아웃이 짧은
+  // sb.functions.invoke() 대신 fetch()를 직접 써서 타임아웃 문제를 피한다.
+  function refreshLiveDisclosures(start, end) {
+    liveFetchState = { loading: true, error: null, truncated: false };
+    renderLiveFetchStatus();
+    return fetch(SUPABASE_URL + '/functions/v1/dart-disclosures', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ start: start, end: end })
+    }).then(function (res) {
+      return res.json().then(function (body) {
+        if (!res.ok) throw new Error(body.error || ('HTTP ' + res.status));
+        return body;
+      });
+    }).then(function (body) {
+      if (body.error) throw new Error(body.error);
+      liveRecords = body.results || [];
+      liveFetchState = { loading: false, error: null, truncated: !!body.truncated };
+      renderLiveFetchStatus();
+      renderHome();
+      renderStats();
+    }).catch(function (err) {
+      liveFetchState = { loading: false, error: (err && err.message) || String(err), truncated: false };
+      renderLiveFetchStatus();
+    });
+  }
+
+  function renderLiveFetchStatus() {
+    var el = document.getElementById('liveFetchStatus');
+    if (!el) return;
+    if (liveFetchState.loading) {
+      el.textContent = 'DART에서 실시간으로 조회 중...';
+      el.className = 'live-fetch-status loading';
+    } else if (liveFetchState.error) {
+      el.textContent = 'DART 실시간 조회 실패: ' + liveFetchState.error + ' (아래 목록은 수동 검증된 건만 표시됩니다)';
+      el.className = 'live-fetch-status error';
+    } else if (liveRecords.length > 0 || liveFetchState.truncated) {
+      var confirmedCount = liveRecords.filter(function (r) { return typeof r.amount === 'number'; }).length;
+      el.textContent = 'DART에서 ' + liveRecords.length + '건 실시간 감지 (그중 금액 확인 ' + confirmedCount + '건, DART 상세 API 직접 확인)' +
+        (liveFetchState.truncated ? ' — 건수가 많아 일부만 표시되었습니다.' : '');
+      el.className = 'live-fetch-status ok';
+    } else {
+      el.textContent = '';
+      el.className = 'live-fetch-status';
+    }
   }
 
   // 공용 상태 판정 헬퍼 — 홈 배지와 상세 화면이 동일한 기준을 공유
@@ -152,15 +348,21 @@
   }
 
   function renderHome() {
-    var inRange = getInRangeRecords();
-    var total = computeTotal(inRange);
+    var filter = getDateFilter();
+    var visible = getVisibleRecords();
+    var total = computeTotal(visible);
 
     document.getElementById('summaryCard').innerHTML =
-      '<p class="summary-label">확인된 자금조달 합계 (2026년 6~8월, ' + inRange.length + '건 — 기간 외 참고건 제외)</p>' +
-      '<p class="summary-amount">' + total.sum.toLocaleString('ko-KR') + '<span class="unit">억원</span></p>' +
-      '<p class="summary-basis">' + total.basisText + '</p>';
+      '<p class="summary-label">확인된 자금조달 합계 (' + describeFilter(filter) + ', ' + visible.length + '건)</p>' +
+      '<p class="summary-amount">' + total.sum.toLocaleString('ko-KR') + '<span class="unit">억원</span></p>';
 
-    var listHtml = DATA.map(function (r) {
+    if (visible.length === 0) {
+      document.getElementById('fundingList').innerHTML =
+        '<li class="mini-empty">선택한 기간·방식·검색어에 해당하는 자금조달 건이 없습니다.</li>';
+      return;
+    }
+
+    var listHtml = visible.map(function (r) {
       var rangeTag = r.outOfRange ? '<span class="out-range-tag">참고용·기간 외</span>' : '';
       var status = renderStatus(r);
       return '<li class="funding-item' + (r.outOfRange ? ' out-range' : '') + '" data-id="' + r.id + '">' +
@@ -170,7 +372,7 @@
         '<span class="funding-date">' + r.disclosureDate + '</span>' +
         '</div>' +
         '<div class="funding-side">' +
-        '<span class="funding-amount">' + r.amount.toLocaleString('ko-KR') + '<span class="unit">억원</span></span>' +
+        '<span class="funding-amount">' + (typeof r.amount === 'number' ? r.amount.toLocaleString('ko-KR') + '<span class="unit">억원</span>' : '확인 필요') + '</span>' +
         '<span class="status-badge ' + status.level + '">' + status.label + '</span>' +
         rangeTag +
         '</div>' +
@@ -184,8 +386,11 @@
 
   function getSelectedRecord() {
     var id = localStorage.getItem(SELECTED_KEY);
-    return DATA.filter(function (r) { return r.id === id; })[0] || null;
+    return DATA.concat(liveRecords).filter(function (r) { return r.id === id; })[0] || null;
   }
+
+  // 채권형 자금조달(회사채·전환사채·신주인수권부사채·교환사채·영구채)에만 발행일·만기일·이자율을 보여준다.
+  var BOND_LIKE_CATEGORIES = ['회사채', '전환사채', '신주인수권부사채', '교환사채', '영구채'];
 
   function renderDetail() {
     var record = getSelectedRecord();
@@ -201,14 +406,25 @@
     var sourcesHtml = record.sourceUrls.map(function (s) {
       return '<li><a href="' + s.url + '" target="_blank" rel="noopener">' + s.label + '</a></li>';
     }).join('');
+
+    var bondRowsHtml = '';
+    if (BOND_LIKE_CATEGORIES.indexOf(record.methodCategory) !== -1) {
+      bondRowsHtml =
+        '<p class="detail-row"><strong>발행일:</strong> ' + (record.issueDate || '확인 필요') + '</p>' +
+        '<p class="detail-row"><strong>만기일:</strong> ' + (record.maturityDate || '확인 필요') + '</p>' +
+        '<p class="detail-row"><strong>표면이자율:</strong> ' + (typeof record.couponRate === 'number' ? record.couponRate + '%' : '확인 필요') + '</p>' +
+        '<p class="detail-row"><strong>만기이자율:</strong> ' + (typeof record.yieldRate === 'number' ? record.yieldRate + '%' : '확인 필요') + '</p>';
+    }
+
     container.innerHTML =
       '<button class="back-link" id="backToHomeBtn" type="button">&larr; 목록으로</button>' +
       '<h3>' + record.company + '</h3>' +
       '<p class="detail-method">' + record.methodDetail + ' · ' + record.sector + '</p>' +
-      '<p class="detail-row"><strong>금액:</strong> ' + record.amount.toLocaleString('ko-KR') + '억원</p>' +
+      '<p class="detail-row"><strong>금액:</strong> ' + (typeof record.amount === 'number' ? record.amount.toLocaleString('ko-KR') + '억원' : '확인 필요(DART 원문 참고)') + '</p>' +
       '<p class="detail-basis">계산 근거: ' + record.amountBasis + '</p>' +
       '<p class="detail-row"><strong>조달목적:</strong> ' + record.purpose.text + '</p>' +
       '<p class="detail-row"><strong>공시일:</strong> ' + record.disclosureDate + '</p>' +
+      bondRowsHtml +
       '<p class="detail-status ' + status.level + '">상태: ' + status.label + '</p>' +
       (status.note ? '<p class="detail-note">' + status.note + '</p>' : '') +
       '<p class="detail-row"><strong>출처</strong></p>' +
@@ -224,7 +440,7 @@
       var key = keyFn(r);
       if (!groups[key]) { groups[key] = { label: key, count: 0, amountSum: 0 }; order.push(key); }
       groups[key].count += 1;
-      groups[key].amountSum += r.amount;
+      if (typeof r.amount === 'number') groups[key].amountSum += r.amount;
     });
     return order.map(function (key) { return groups[key]; });
   }
@@ -262,13 +478,18 @@
   }
 
   function renderStats() {
-    var inRange = getInRangeRecords();
-    var total = computeTotal(inRange);
+    var filter = getDateFilter();
+    var visible = getVisibleRecords();
+    var total = computeTotal(visible);
+    var searchTerm = getCompanySearch();
 
-    renderStatList('methodStatsList', computeByMethod(inRange), total.sum);
-    renderStatList('sectorStatsList', computeBySector(inRange), total.sum);
+    document.getElementById('statsFilterNote').textContent = '조회 기간: ' + describeFilter(filter) +
+      (searchTerm ? (' · 검색: "' + searchTerm + '"') : '') + ' (' + visible.length + '건 기준)';
 
-    var ratio = computeConfirmedRatio(inRange);
+    renderStatList('methodStatsList', computeByMethod(visible), total.sum);
+    renderStatList('sectorStatsList', computeBySector(visible), total.sum);
+
+    var ratio = computeConfirmedRatio(visible);
     document.getElementById('ratioCard').innerHTML =
       '<h2>확인/미확인 비율</h2>' +
       '<p class="summary-label">금액·목적이 모두 확인된 건의 비율 (진행중 여부와 무관)</p>' +
@@ -277,235 +498,139 @@
       ratio.confirmedCount + '/' + ratio.total + '×100=' + ratio.pct + '%)</p>';
   }
 
-  // 관심기업 알림설정: Supabase(watchlist_items 테이블)에 저장 (실제 발송 없음)
+  // DART 실시간 조회(Edge Function 호출)에 쓰는 Supabase 클라이언트
   var SUPABASE_URL = 'https://mgooeyqqlqkioflwrzzi.supabase.co';
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nb29leXFxbHFraW9mbHdyenppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1MDE2MTksImV4cCI6MjEwMjA3NzYxOX0.LfEddPIq4KEkYxBaOsoxbNrmKllQQwUtDHO340B3nCk';
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  // 자금조달 방식 버튼 표시 갱신: 조회 기간 초기화("전체 기간 보기")에서도 재사용하기 위해 상위 스코프에 둔다.
+  function isAllCategoriesSelected() {
+    var selected = getCategoryFilter();
+    return ALL_CATEGORIES.every(function (c) { return selected.indexOf(c) !== -1; });
+  }
+
+  function syncCategoryButtonStates() {
+    var selected = getCategoryFilter();
+    var allSelected = isAllCategoriesSelected();
+    document.querySelectorAll('.category-btn').forEach(function (btn) {
+      if (btn.dataset.category === 'all') {
+        btn.classList.toggle('active', allSelected);
+      } else {
+        btn.classList.toggle('active', selected.indexOf(btn.dataset.category) !== -1);
+      }
     });
   }
 
-  function setWatchlistSyncNote(text) {
-    var note = document.getElementById('watchlistSyncNote');
-    if (!note) return;
-    note.textContent = text;
-    note.style.display = text ? '' : 'none';
-  }
+  function initDateFilter() {
+    var startInput = document.getElementById('filterStartInput');
+    var endInput = document.getElementById('filterEndInput');
+    var errorEl = document.getElementById('filterError');
+    var presetButtons = document.querySelectorAll('.preset-btn');
 
-  function showWatchSavedMsg() {
-    var msg = document.getElementById('watchSavedMsg');
-    msg.classList.add('show');
-    setTimeout(function () { msg.classList.remove('show'); }, 2500);
-  }
-
-  async function loadWatchlist() {
-    var res = await sb.from('watchlist_items').select('id, type, value').order('created_at', { ascending: true });
-    if (res.error) {
-      setWatchlistSyncNote('불러오기 실패: Supabase에 연결할 수 없습니다. (' + res.error.message + ')');
-      return { companies: [], keywords: [] };
+    function showFilterError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.add('show');
     }
-    setWatchlistSyncNote('');
-    var rows = res.data || [];
-    return {
-      companies: rows.filter(function (r) { return r.type === 'company'; }),
-      keywords: rows.filter(function (r) { return r.type === 'keyword'; })
-    };
-  }
 
-  async function addWatchlistItem(type, value) {
-    var res = await sb.from('watchlist_items').insert({ type: type, value: value });
-    if (res.error) {
-      setWatchlistSyncNote('저장 실패: ' + res.error.message);
-      return;
+    function clearFilterError() {
+      errorEl.textContent = '';
+      errorEl.classList.remove('show');
     }
-    showWatchSavedMsg();
-  }
 
-  async function removeWatchlistItem(id) {
-    var res = await sb.from('watchlist_items').delete().eq('id', id);
-    if (res.error) {
-      setWatchlistSyncNote('삭제 실패: ' + res.error.message);
-      return;
+    function applyAndRerender(filter) {
+      clearFilterError();
+      setDateFilter(filter);
+      startInput.value = filter.start || '';
+      endInput.value = filter.end || '';
+      liveRecords = [];
+      liveFetchState = { loading: false, error: null, truncated: false };
+      renderHome();
+      renderStats();
+      if (filter.start && filter.end) {
+        refreshLiveDisclosures(filter.start, filter.end);
+      } else {
+        renderLiveFetchStatus();
+      }
     }
-    showWatchSavedMsg();
-  }
 
-  function renderChips(containerId, items) {
-    document.getElementById(containerId).innerHTML = items.map(function (item) {
-      return '<li class="chip">' + escapeHtml(item.value) +
-        '<button class="chip-remove" data-id="' + item.id + '" type="button">×</button>' +
-        '</li>';
-    }).join('');
-    document.querySelectorAll('#' + containerId + ' .chip-remove').forEach(function (btn) {
+    var initial = getDateFilter();
+    startInput.value = initial.start || '';
+    endInput.value = initial.end || '';
+
+    document.getElementById('applyFilterBtn').addEventListener('click', function () {
+      var start = startInput.value || null;
+      var end = endInput.value || null;
+      if (start && end && start > end) {
+        showFilterError('시작일이 종료일보다 늦을 수 없습니다. 기간을 다시 확인해 주세요.');
+        return;
+      }
+      applyAndRerender({ start: start, end: end });
+    });
+
+    document.getElementById('resetFilterBtn').addEventListener('click', function () {
+      setCategoryFilter(ALL_CATEGORIES.slice());
+      syncCategoryButtonStates();
+      applyAndRerender({ start: null, end: null });
+    });
+
+    presetButtons.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        removeWatchlistItem(btn.dataset.id).then(renderWatchlist);
+        var days = Number(btn.dataset.preset);
+        var end = new Date();
+        var start = new Date();
+        start.setDate(start.getDate() - (days - 1));
+        applyAndRerender({ start: fmtDate(start), end: fmtDate(end) });
       });
     });
   }
 
-  async function renderWatchlist() {
-    var wl = await loadWatchlist();
-    renderChips('companyChips', wl.companies);
-    renderChips('keywordChips', wl.keywords);
-  }
+  function initCategoryFilter() {
+    var buttons = document.querySelectorAll('.category-btn');
 
-  function initWatchlist() {
-    setWatchlistSyncNote('불러오는 중...');
-    renderWatchlist();
+    syncCategoryButtonStates();
 
-    document.getElementById('addCompanyBtn').addEventListener('click', async function () {
-      var input = document.getElementById('companyInput');
-      var value = input.value.trim();
-      if (!value) return;
-      await addWatchlistItem('company', value);
-      input.value = '';
-      renderWatchlist();
-    });
-
-    document.getElementById('addKeywordBtn').addEventListener('click', async function () {
-      var input = document.getElementById('keywordInput');
-      var value = input.value.trim();
-      if (!value) return;
-      await addWatchlistItem('keyword', value);
-      input.value = '';
-      renderWatchlist();
-    });
-  }
-
-  // 메모: localStorage에 배열로 저장 (watchlist와 동일한 load/save/render 패턴)
-  var NOTES_KEY = 'fundraisingBrief.notes';
-
-  function loadNotes() {
-    var raw = localStorage.getItem(NOTES_KEY);
-    if (!raw) return [];
-    try {
-      var parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function saveNotes(notes) {
-    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
-  }
-
-  function renderNotes() {
-    var notes = loadNotes();
-    var list = document.getElementById('noteList');
-    if (notes.length === 0) {
-      list.innerHTML = '<li class="mini-empty">아직 메모가 없습니다.</li>';
-      return;
-    }
-    list.innerHTML = notes.map(function (n, i) {
-      return '<li class="mini-item">' +
-        '<div class="mini-text">' + n.text + '<div class="mini-meta">' + n.createdAt + '</div></div>' +
-        '<button class="chip-remove" data-index="' + i + '" type="button">×</button>' +
-        '</li>';
-    }).join('');
-    document.querySelectorAll('#noteList .chip-remove').forEach(function (btn) {
+    buttons.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var notes = loadNotes();
-        notes.splice(Number(btn.dataset.index), 1);
-        saveNotes(notes);
-        renderNotes();
+        var category = btn.dataset.category;
+        if (category === 'all') {
+          setCategoryFilter(isAllCategoriesSelected() ? [] : ALL_CATEGORIES.slice());
+        } else {
+          var selected = getCategoryFilter();
+          var idx = selected.indexOf(category);
+          if (idx === -1) selected.push(category); else selected.splice(idx, 1);
+          setCategoryFilter(selected);
+        }
+        syncCategoryButtonStates();
+        renderHome();
+        renderStats();
       });
     });
   }
 
-  function initNotes() {
-    renderNotes();
-    document.getElementById('addNoteBtn').addEventListener('click', function () {
-      var input = document.getElementById('noteInput');
-      var value = input.value.trim();
-      if (!value) return;
-      var notes = loadNotes();
-      notes.push({ text: value, createdAt: new Date().toLocaleString('ko-KR') });
-      saveNotes(notes);
+  function initCompanySearch() {
+    var input = document.getElementById('companySearchInput');
+    input.value = getCompanySearch();
+
+    input.addEventListener('input', function () {
+      setCompanySearch(input.value);
+      renderHome();
+      renderStats();
+    });
+
+    document.getElementById('clearCompanySearchBtn').addEventListener('click', function () {
       input.value = '';
-      renderNotes();
-    });
-  }
-
-  // 체크리스트: localStorage에 배열로 저장, 토글완료는 chip-remove와 동일한 data-index 위임 패턴
-  var CHECKLIST_KEY = 'fundraisingBrief.checklist';
-
-  function loadChecklist() {
-    var raw = localStorage.getItem(CHECKLIST_KEY);
-    if (!raw) return [];
-    try {
-      var parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function saveChecklist(items) {
-    localStorage.setItem(CHECKLIST_KEY, JSON.stringify(items));
-  }
-
-  function renderChecklist() {
-    var items = loadChecklist();
-    var list = document.getElementById('checklistList');
-    if (items.length === 0) {
-      list.innerHTML = '<li class="mini-empty">체크리스트가 비어 있습니다.</li>';
-      return;
-    }
-    list.innerHTML = items.map(function (item, i) {
-      return '<li class="mini-item check-item' + (item.done ? ' done' : '') + '">' +
-        '<input type="checkbox" data-index="' + i + '"' + (item.done ? ' checked' : '') + '>' +
-        '<label class="check-label" data-index="' + i + '">' + item.text + '</label>' +
-        '<button class="chip-remove" data-index="' + i + '" type="button">×</button>' +
-        '</li>';
-    }).join('');
-
-    function toggleDone(index) {
-      var items = loadChecklist();
-      items[index].done = !items[index].done;
-      saveChecklist(items);
-      renderChecklist();
-    }
-
-    document.querySelectorAll('#checklistList input[type="checkbox"]').forEach(function (cb) {
-      cb.addEventListener('change', function () { toggleDone(Number(cb.dataset.index)); });
-    });
-    document.querySelectorAll('#checklistList .check-label').forEach(function (label) {
-      label.addEventListener('click', function () { toggleDone(Number(label.dataset.index)); });
-    });
-    document.querySelectorAll('#checklistList .chip-remove').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var items = loadChecklist();
-        items.splice(Number(btn.dataset.index), 1);
-        saveChecklist(items);
-        renderChecklist();
-      });
-    });
-  }
-
-  function initChecklist() {
-    renderChecklist();
-    document.getElementById('addChecklistBtn').addEventListener('click', function () {
-      var input = document.getElementById('checklistInput');
-      var value = input.value.trim();
-      if (!value) return;
-      var items = loadChecklist();
-      items.push({ text: value, done: false });
-      saveChecklist(items);
-      input.value = '';
-      renderChecklist();
+      setCompanySearch('');
+      renderHome();
+      renderStats();
     });
   }
 
   renderHome();
   renderDetail();
   renderStats();
-  initWatchlist();
-  initNotes();
-  initChecklist();
+  initDateFilter();
+  initCategoryFilter();
+  initCompanySearch();
 
   document.getElementById('fundingList').addEventListener('click', function (e) {
     var item = e.target.closest('.funding-item');
@@ -513,25 +638,6 @@
     localStorage.setItem(SELECTED_KEY, item.dataset.id);
     renderDetail();
     showScreen('screen-detail');
-  });
-
-  // 테마 토글: localStorage에 저장된 값으로 로드 시 복원
-  var THEME_KEY = 'fundraisingBrief.theme';
-  var themeBtn = document.getElementById('themeBtn');
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    themeBtn.textContent = theme === 'dark' ? '라이트 모드' : '다크 모드';
-  }
-
-  var savedTheme = localStorage.getItem(THEME_KEY) || 'light';
-  applyTheme(savedTheme);
-
-  themeBtn.addEventListener('click', function () {
-    var cur = document.documentElement.getAttribute('data-theme');
-    var next = cur === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    localStorage.setItem(THEME_KEY, next);
   });
 
   // 탭 네비게이션: 화면 전환만 담당 (데이터 렌더링은 다음 태스크에서 추가)

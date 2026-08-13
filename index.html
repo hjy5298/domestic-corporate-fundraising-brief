@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>국내 주요 기업 자금조달 뉴스 요약</title>
+<title>국내 주요기업 자금조달</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,26 +11,56 @@
   <div class="wrap">
     <header>
       <div>
-        <h1>국내 주요 기업 자금조달 뉴스 요약</h1>
-        <p class="subtitle">회사채·유상증자 등 국내 주요 기업 자금조달 소식을 건별로 확인</p>
+        <h1>국내 주요기업 자금조달</h1>
+        <p class="subtitle">회사채·유상증자 및 IPO·전환사채·신주인수권부사채·교환사채·영구채 등 국내 주요 기업 자금조달 소식을 건별로 확인</p>
       </div>
-      <button class="theme-btn" id="themeBtn" type="button">다크 모드</button>
     </header>
 
     <nav class="tab-nav" id="tabNav">
       <button class="tab-btn" data-target="screen-home" type="button">홈</button>
       <button class="tab-btn" data-target="screen-detail" type="button">건별 상세</button>
       <button class="tab-btn" data-target="screen-stats" type="button">통계/분포</button>
-      <button class="tab-btn" data-target="screen-watchlist" type="button">관심종목</button>
     </nav>
 
     <main>
       <section class="screen" id="screen-home">
+        <div class="card">
+          <h2>조회 기간</h2>
+          <p class="desc">공시일 기준으로 기간을 선택하면 아래 목록·합계·통계/분포 화면에 함께 반영됩니다.</p>
+          <div class="date-filter-row">
+            <input type="date" id="filterStartInput">
+            <span class="date-filter-sep">~</span>
+            <input type="date" id="filterEndInput">
+            <button class="save-btn" id="applyFilterBtn" type="button">적용</button>
+            <button class="back-link" id="resetFilterBtn" type="button">전체 기간 보기</button>
+          </div>
+          <p class="filter-error" id="filterError"></p>
+          <div class="preset-row">
+            <button class="preset-btn" type="button" data-preset="7">최근 1주일</button>
+            <button class="preset-btn" type="button" data-preset="30">최근 1개월</button>
+          </div>
+          <p class="live-fetch-status" id="liveFetchStatus"></p>
+          <p class="filter-subheading">자금조달 방식 (누르면 켜고 끕니다)</p>
+          <div class="category-filter-row" id="categoryFilterRow">
+            <button class="category-btn" type="button" data-category="all">전체</button>
+            <button class="category-btn" type="button" data-category="회사채">회사채</button>
+            <button class="category-btn" type="button" data-category="유상증자 및 IPO">유상증자 및 IPO</button>
+            <button class="category-btn" type="button" data-category="전환사채">전환사채</button>
+            <button class="category-btn" type="button" data-category="신주인수권부사채">신주인수권부사채</button>
+            <button class="category-btn" type="button" data-category="교환사채">교환사채</button>
+            <button class="category-btn" type="button" data-category="영구채">영구채</button>
+          </div>
+        </div>
+
         <div class="card" id="summaryCard"></div>
 
         <div class="card">
           <h2>자금조달 목록</h2>
-          <p class="desc">2026년 6~8월 국내 주요 기업 자금조달 건입니다. 항목을 클릭하면 상세 화면으로 이동합니다.</p>
+          <p class="desc">DART 전자공시(dsac001/mainAll.do) 기준 자금조달 건입니다. 항목을 클릭하면 상세 화면으로 이동합니다.</p>
+          <div class="company-search-row">
+            <input type="text" id="companySearchInput" placeholder="회사명 검색 (예: SK하이닉스)">
+            <button class="back-link" id="clearCompanySearchBtn" type="button">지우기</button>
+          </div>
           <ul class="funding-list" id="fundingList"></ul>
         </div>
       </section>
@@ -45,7 +75,7 @@
       <section class="screen" id="screen-stats">
         <div class="card">
           <h2>조달방식별 합계</h2>
-          <p class="desc">2026년 6~8월 확인 대상 건 기준(기간 외 참고건 제외).</p>
+          <p class="desc" id="statsFilterNote"></p>
           <ul class="stat-list" id="methodStatsList"></ul>
         </div>
 
@@ -55,63 +85,6 @@
         </div>
 
         <div class="card" id="ratioCard"></div>
-      </section>
-
-      <section class="screen" id="screen-watchlist">
-        <div class="panel-grid">
-          <div class="card panel-card">
-            <p class="eyebrow">관심종목</p>
-            <p class="desc">브라우저에만 저장됩니다. <strong>실제 알림(이메일/푸시 등)은 발송되지 않습니다.</strong></p>
-
-            <div class="watch-form">
-              <p class="desc" id="watchlistSyncNote">불러오는 중...</p>
-
-              <label class="settings-row">
-                <span>관심기업</span>
-                <div class="watch-input-row">
-                  <input type="text" id="companyInput" placeholder="예: SK하이닉스">
-                  <button class="save-btn" id="addCompanyBtn" type="button">추가</button>
-                </div>
-              </label>
-              <ul class="chip-list" id="companyChips"></ul>
-
-              <label class="settings-row">
-                <span>관심 키워드</span>
-                <div class="watch-input-row">
-                  <input type="text" id="keywordInput" placeholder="예: 유상증자">
-                  <button class="save-btn" id="addKeywordBtn" type="button">추가</button>
-                </div>
-              </label>
-              <ul class="chip-list" id="keywordChips"></ul>
-
-              <p class="saved-msg" id="watchSavedMsg">저장되었습니다. (로컬 저장만 — 실제 발송되지 않습니다)</p>
-            </div>
-          </div>
-
-          <div class="card panel-card">
-            <p class="eyebrow">메모</p>
-            <p class="desc">생각나는 내용을 짧게 기록해두세요.</p>
-            <div class="mini-form">
-              <div class="watch-input-row">
-                <input type="text" id="noteInput" placeholder="메모 입력">
-                <button class="save-btn" id="addNoteBtn" type="button">추가</button>
-              </div>
-              <ul class="mini-list" id="noteList"></ul>
-            </div>
-          </div>
-
-          <div class="card panel-card">
-            <p class="eyebrow">체크리스트</p>
-            <p class="desc">해야 할 일을 등록하고 완료 체크를 해보세요.</p>
-            <div class="mini-form">
-              <div class="watch-input-row">
-                <input type="text" id="checklistInput" placeholder="할 일 입력">
-                <button class="save-btn" id="addChecklistBtn" type="button">추가</button>
-              </div>
-              <ul class="mini-list" id="checklistList"></ul>
-            </div>
-          </div>
-        </div>
       </section>
     </main>
   </div>
